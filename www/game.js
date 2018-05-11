@@ -56,6 +56,10 @@ class Game {
 		}
 
 		for (let i = 0; i < this.players.length; i++) {
+			this.players[i].trails();
+		}
+
+		for (let i = 0; i < this.players.length; i++) {
 			if (this.players[i].isAlive) {
 				this.players[i].update();
 			}

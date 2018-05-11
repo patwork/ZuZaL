@@ -1,5 +1,5 @@
 // player.js
-/* global Vector */
+/* global Vector, Trail */
 /* exported Player */
 
 class Player {
@@ -15,6 +15,7 @@ class Player {
 		this.speedForward = 2.0;
 		this.speedRotation = Math.PI / 80.0;
 		this.isAlive = true;
+		this.trail = new Trail(context, color);
 	}
 
 	// ----------------------------------------------
@@ -30,6 +31,8 @@ class Player {
 	render() {
 
 		let ctx = this.context;
+
+		this.trail.render();
 
 		ctx.fillStyle = this.isAlive ? this.color : 'black';
 		ctx.strokeStyle = this.isAlive ? 'white' : this.color;
@@ -47,6 +50,15 @@ class Player {
 			this.position.y + Math.sin(this.rotation) * this.scale * 2);
 		ctx.stroke();
 
+	}
+
+	// ----------------------------------------------
+	trails() {
+		if (this.isAlive) {
+			this.trail.update(this.position.x, this.position.y);
+		} else {
+			this.trail.update();
+		}
 	}
 
 	// ----------------------------------------------
